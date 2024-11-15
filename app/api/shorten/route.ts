@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
     const baseUrl = `${protocol}://${host}`;
     
-    const shortUrl = `${baseUrl}/s/${shortCode}`;
+    const shortUrl = `${baseUrl}/${shortCode}`;
     return NextResponse.json({ shortUrl });
     
   } catch (error) {

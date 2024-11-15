@@ -10,13 +10,17 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
-export const metadata: Metadata = {
-  title: 'URL Shortener | Redirecting',
-  description: 'Redirecting to the original URL',
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: 'URL Shortener | Redirecting',
+    description: 'Redirecting to the original URL',
+  }
 }
 
-export default async function ShortUrlRedirect({ params }: { params: { shortCode: string } }) {
-  const { shortCode } = params;
+export default async function ShortUrlRedirect(params: { 
+  params: Promise<{ shortCode: string }> 
+}) {
+  const { shortCode } = await params.params;
 
   const { data, error } = await supabase
     .from('urls')
